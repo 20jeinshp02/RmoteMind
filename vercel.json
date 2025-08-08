@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend-example.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend-example.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/backend-example.js"
+    }
+  ],
+  "env": {
+    "STRIPE_SECRET_KEY": "@stripe-secret-key",
+    "STRIPE_WEBHOOK_SECRET": "@stripe-webhook-secret",
+    "CLIENT_URL": "@client-url",
+    "NODE_ENV": "production"
+  }
+}

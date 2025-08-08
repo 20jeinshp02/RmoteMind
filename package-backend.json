@@ -1,0 +1,28 @@
+{
+  "name": "wellness-app-backend",
+  "version": "1.0.0",
+  "description": "Backend server for wellness app with Stripe integration",
+  "main": "backend-example.js",
+  "scripts": {
+    "start": "node backend-example.js",
+    "dev": "nodemon backend-example.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "stripe": "^14.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "stripe",
+    "payments",
+    "subscription",
+    "wellness",
+    "backend"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
