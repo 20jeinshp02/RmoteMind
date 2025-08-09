@@ -1,9 +1,18 @@
 // Example backend implementation for Stripe checkout
 // This file demonstrates how to use the private key securely on the server
 
+// Load environment variables from .env.backend
 require('dotenv').config({ path: '.env.backend' });
 const express = require('express');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'your_stripe_secret_key_here'); // Use the private key from environment
+
+// Validate Stripe configuration
+if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('your_') || process.env.STRIPE_SECRET_KEY.includes('_here')) {
+  console.error('❌ STRIPE_SECRET_KEY not properly configured in .env.backend');
+  console.log('Please set your actual Stripe secret key in .env.backend');
+  process.exit(1);
+}
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use the private key from environment
 const cors = require('cors');
 
 const app = express();
