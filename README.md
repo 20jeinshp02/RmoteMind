@@ -45,18 +45,25 @@ RemoteMind is a comprehensive web application designed specifically to address t
 - **Build Tool**: Vite for fast development and building
 - **Routing**: React Router for navigation
 
-## Getting Started
+## 🔒 Security Features
+
+- **Environment Variable Protection**: All sensitive API keys are properly secured
+- **Stripe Integration**: Secure payment processing with webhook validation
+- **Input Validation**: Backend validation prevents startup with invalid credentials
+- **Git Security**: All sensitive files are excluded from version control
+
+## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js (version 16 or higher)
 - npm or yarn package manager
 
-### Installation
+### Development Setup
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd remotemind
+git clone https://github.com/20jeinshp02/RmoteMind.git
+cd "trea remote mind 00"
 ```
 
 2. Install dependencies:
@@ -64,18 +71,64 @@ cd remotemind
 npm install
 ```
 
-3. Start the development server:
+3. Set up environment variables:
 ```bash
-npm run dev
+# For development, the app will show validation errors for missing keys
+# This is intentional for security
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. Start development servers:
+```bash
+npm run dev          # Frontend (port 3000)
+# Backend requires valid Stripe keys - see production setup
+```
+
+### Production Setup
+
+1. Run the production setup script:
+```bash
+./setup-production.sh
+```
+
+2. Configure your Stripe keys in `.env.backend`
+3. Update frontend URLs in `.env`
+4. Follow the deployment checklist: `DEPLOYMENT_CHECKLIST.md`
 
 ### Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
+- `./setup-production.sh` - Set up production environment
+
+## 🌐 Deployment
+
+### Supported Platforms
+
+**Frontend Deployment:**
+- ✅ Vercel (Recommended)
+- ✅ Netlify
+- ✅ GitHub Pages
+
+**Backend Deployment:**
+- ✅ Heroku (Recommended)
+- ✅ Railway
+- ✅ Render
+- ✅ DigitalOcean
+
+### Quick Deploy
+
+1. **Frontend to Vercel:**
+   - Connect your GitHub repository
+   - Set environment variables in Vercel dashboard
+   - Deploy automatically on push
+
+2. **Backend to Heroku:**
+   - Create Heroku app
+   - Set config vars (environment variables)
+   - Deploy via Git or GitHub integration
+
+See detailed deployment guides in the `/docs` folder.
 
 ## Design Philosophy
 
