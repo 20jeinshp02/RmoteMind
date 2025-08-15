@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Play, 
   Pause, 
-  RotateCcw, 
   Heart, 
   Brain, 
   Zap,
@@ -18,7 +17,6 @@ import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import SubscriptionModal from '../components/SubscriptionModal';
 
 const StressManagement = () => {
-  const [activeTimer, setActiveTimer] = useState<number | null>(null);
   const [selectedExercise, setSelectedExercise] = useState<number | null>(null);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const { hasAccess, isTrialActive, trialDaysLeft } = useSubscription();

@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, 
   Settings, 
-  Bell, 
-  Shield, 
   Award,
   Calendar,
   Clock,
@@ -25,7 +23,7 @@ import SubscriptionModal from './SubscriptionModal';
 
 const UserDashboard = () => {
   const { user, logout, updateProfile } = useAuth();
-  const { currentPlan, hasAccess } = useSubscription();
+  const { hasAccess } = useSubscription();
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);

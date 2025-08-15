@@ -1,15 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Send, 
   Bot, 
   User, 
-  Heart, 
   Brain, 
-  MessageCircle,
-  Clock,
-  Lock,
-  Sparkles
+  Lock
 } from 'lucide-react';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import SubscriptionModal from './SubscriptionModal';

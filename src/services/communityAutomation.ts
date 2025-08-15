@@ -162,7 +162,6 @@ class CommunityAutomationService {
   // Schedule automated events based on user preferences and community needs
   scheduleAutomatedEvents(): AutoEvent[] {
     const scheduledEvents: AutoEvent[] = [];
-    const now = new Date();
 
     // Daily events
     this.eventTemplates.daily.forEach(template => {

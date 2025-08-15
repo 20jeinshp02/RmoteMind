@@ -9,7 +9,7 @@ export interface CheckoutSession {
 }
 
 // Mock function to simulate creating a Stripe checkout session
-export const createMockCheckoutSession = async (priceId: string): Promise<CheckoutSession> => {
+export const createMockCheckoutSession = async (_priceId: string): Promise<CheckoutSession> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
   
@@ -26,7 +26,7 @@ export const createMockCheckoutSession = async (priceId: string): Promise<Checko
 };
 
 // Mock function to verify payment status
-export const verifyPaymentStatus = async (sessionId: string): Promise<{ status: 'paid' | 'unpaid' | 'cancelled' }> => {
+export const verifyPaymentStatus = async (_sessionId: string): Promise<{ status: 'paid' | 'unpaid' | 'cancelled' }> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 300));
   

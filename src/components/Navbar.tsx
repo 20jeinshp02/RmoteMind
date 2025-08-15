@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Home, 
   Users, 
   Brain, 
   Target, 
@@ -19,7 +18,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const location = useLocation();
-  const { currentPlan, isTrialActive, trialDaysLeft } = useSubscription();
+  const { isTrialActive, trialDaysLeft } = useSubscription();
 
   const navItems = [
     { path: '#', label: 'Subscriptions', icon: Crown, onClick: () => setShowSubscriptionModal(true) },
