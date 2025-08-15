@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: remotemind-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node backend-example.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        value: https://your-domain.com  # Update this with your actual domain
+      - key: STRIPE_SECRET_KEY
+        value: sk_test_your_test_key_here  # Update with your test key
+      - key: STRIPE_WEBHOOK_SECRET
+        value: whsec_placeholder  # Will update after webhook setup
