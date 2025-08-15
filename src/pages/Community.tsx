@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MessageCircle, 
@@ -7,7 +7,6 @@ import {
   Plus, 
   Users, 
   Calendar,
-  MapPin,
   Clock,
   Bookmark,
   Zap,
@@ -36,7 +35,6 @@ const Community = () => {
     events,
     isLoading,
     insights,
-    userPreferences,
     actions,
     getFilteredContent,
     getTrendingContent,

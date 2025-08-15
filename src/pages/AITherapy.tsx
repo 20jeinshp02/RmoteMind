@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Brain, 
@@ -6,7 +6,6 @@ import {
   MessageCircle, 
   Shield, 
   Clock, 
-  Star,
   CheckCircle,
   Lock,
   Sparkles
@@ -18,7 +17,7 @@ import SubscriptionModal from '../components/SubscriptionModal';
 const AITherapy = () => {
   const [showChat, setShowChat] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const { hasAccess, getAITherapistLimit, isTrialActive, currentPlan } = useSubscription();
+  const { hasAccess, getAITherapistLimit, isTrialActive } = useSubscription();
   
   const sessionLimit = getAITherapistLimit();
   const hasAIAccess = hasAccess('ai_therapist_limited') || hasAccess('ai_therapist_unlimited');

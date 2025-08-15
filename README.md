@@ -58,30 +58,42 @@ RemoteMind is a comprehensive web application designed specifically to address t
 - Node.js (version 16 or higher)
 - npm or yarn package manager
 
-### Development Setup
-
-1. Clone the repository:
+### Option 1: Automated Setup (Recommended)
 ```bash
+# Clone and install
 git clone https://github.com/20jeinshp02/RmoteMind.git
 cd "trea remote mind 00"
-```
-
-2. Install dependencies:
-```bash
 npm install
+
+# Run the interactive setup script
+./setup-stripe-keys.sh
+
+# Start servers
+node backend-example.js  # Terminal 1
+npm run dev             # Terminal 2
 ```
 
-3. Set up environment variables:
-```bash
-# For development, the app will show validation errors for missing keys
-# This is intentional for security
-```
+### Option 2: Manual Setup
+1. **Clone and Install**:
+   ```bash
+   git clone https://github.com/20jeinshp02/RmoteMind.git
+   cd "trea remote mind 00"
+   npm install
+   ```
 
-4. Start development servers:
-```bash
-npm run dev          # Frontend (port 3000)
-# Backend requires valid Stripe keys - see production setup
-```
+2. **Configure Stripe Keys**:
+   - Get your Stripe test keys from [Stripe Dashboard](https://dashboard.stripe.com/test/apikeys)
+   - Update `VITE_STRIPE_PUBLIC_KEY` in `.env`
+   - Update `STRIPE_SECRET_KEY` in `.env.backend`
+
+3. **Start Development Servers**:
+   ```bash
+   # Terminal 1: Backend (required for payments)
+   node backend-example.js
+   
+   # Terminal 2: Frontend
+   npm run dev
+   ```
 
 ### Production Setup
 

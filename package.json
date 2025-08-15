@@ -1,6 +1,7 @@
 {
   "name": "remotemind",
   "version": "1.0.0",
+  "type": "module",
   "description": "Mental health support app for remote workers",
   "main": "index.js",
   "scripts": {

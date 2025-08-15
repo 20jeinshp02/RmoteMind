@@ -96,7 +96,7 @@ class AIService {
     "I'm glad you're taking time to check in with yourself. What's one thing that's been on your mind lately?"
   ];
 
-  async generateResponse(userMessage: string, conversationHistory: AIMessage[]): Promise<AITherapistResponse> {
+  async generateResponse(userMessage: string, _conversationHistory: AIMessage[]): Promise<AITherapistResponse> {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
 
@@ -132,7 +132,7 @@ class AIService {
   }
 
   // In a real implementation, this would connect to GROK AI API or similar
-  async connectToGrokAPI(message: string): Promise<string> {
+  async connectToGrokAPI(_message: string): Promise<string> {
     // Placeholder for actual API integration
     throw new Error('GROK AI API integration not implemented yet');
   }

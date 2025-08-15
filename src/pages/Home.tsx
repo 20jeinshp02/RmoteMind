@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Brain, 
   Users, 
   Target, 
-  Heart, 
-  Shield, 
-  Zap,
   ArrowRight,
   CheckCircle,
   CreditCard

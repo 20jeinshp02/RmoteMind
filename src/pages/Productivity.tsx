@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Clock, 
   Target, 
   TrendingUp, 
   Calendar,
@@ -113,7 +112,7 @@ const Productivity = () => {
                   <button
                     onClick={() => {
                       const currentType = timerTypes.find(t => t.id === activeTimer);
-                      setTimeLeft(currentType?.duration * 60 || 25 * 60);
+                      setTimeLeft((currentType?.duration || 25) * 60);
                       setIsRunning(false);
                     }}
                     className="btn btn-outline text-lg px-8 py-3"
@@ -130,7 +129,11 @@ const Productivity = () => {
                     timerTypes.find(t => t.id === activeTimer)?.color || 'bg-red-500'
                   }`}
                   style={{ 
-                    width: `${((timerTypes.find(t => t.id === activeTimer)?.duration * 60 - timeLeft) / (timerTypes.find(t => t.id === activeTimer)?.duration * 60)) * 100}%` 
+                    width: `${(() => {
+                      const currentType = timerTypes.find(t => t.id === activeTimer);
+                      const duration = (currentType?.duration || 25) * 60;
+                      return ((duration - timeLeft) / duration) * 100;
+                    })()}%` 
                   }}
                 ></div>
               </div>
