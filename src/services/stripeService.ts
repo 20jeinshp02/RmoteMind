@@ -2,7 +2,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { createMockCheckoutSession, getBackendConfig } from './mockBackend';
 
 // Initialize Stripe with your public key from environment variables
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_live_51JLamOLC2SGImPo4mTGfumASs5xRZxxH9LgqUSa4Muz7uR8Crwny53pfSKsD4fm8p4wXLbbMfikV8e9hjb3cgxie007y8hDJry');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 // Price IDs for different subscription plans (these would come from your Stripe dashboard)
 export const stripePriceIds = {
