@@ -8,8 +8,8 @@
  * Example: node test-backend.js https://remotemind-backend-john.herokuapp.com
  */
 
-const https = require('https');
-const http = require('http');
+import https from 'https';
+import http from 'http';
 
 // Get backend URL from command line argument
 const backendUrl = process.argv[2];
