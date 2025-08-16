@@ -1,21 +1,22 @@
 # 🚀 RemoteMind Production Deployment Status
 
-## 📊 **Current Status: Phase 2 - Backend Deployment (Heroku)**
+## 📊 **Current Status: Phase 2 - Backend Deployment (Render.com)**
 
 ### ✅ **Phase 1: Environment Setup (COMPLETED)**
 - [x] Fixed minor warnings (`package.json` module type)
 - [x] Created production environment files (`.env.production`, `.env.local`)
 - [x] Generated deployment documentation
 - [x] Analyzed backend code for production readiness
-- [x] Created Heroku-specific deployment guides
+- [x] Created Render-specific deployment guides
+- [x] Prepared automated setup scripts
 
-### 🔄 **Phase 2: Backend Deployment (IN PROGRESS)**
-- [ ] **Step 1**: Create Heroku account (if needed)
-- [ ] **Step 2**: Create new Heroku app
+### 🔄 **Phase 2: Backend Deployment (READY TO START)**
+- [ ] **Step 1**: Create Render.com account (free)
+- [ ] **Step 2**: Create new Web Service
 - [ ] **Step 3**: Connect GitHub repository
 - [ ] **Step 4**: Configure environment variables
-- [ ] **Step 5**: Deploy backend to Heroku
-- [ ] **Step 6**: Verify backend deployment
+- [ ] **Step 5**: Deploy backend to Render
+- [ ] **Step 6**: Connect custom domain
 - [ ] **Step 7**: Configure Stripe webhooks
 - [ ] **Step 8**: Test payment flow
 
@@ -41,51 +42,52 @@
 
 ---
 
-## 📋 **Current Task: Heroku Backend Deployment**
+## 📋 **Current Task: Render.com Backend Deployment**
 
 ### **Required Information:**
-- **Heroku Account**: [Create at heroku.com]
-- **GitHub Repository**: Connected and up-to-date
+- **Render Account**: [Create at render.com - FREE]
+- **GitHub Repository**: Connected and up-to-date ✅
 - **Stripe Keys**: Test keys for initial deployment
+- **Custom Domain**: Ready for connection
 
 ### **Files Ready for Deployment:**
 - ✅ `backend-example.js` - Main backend server
 - ✅ `backend-package.json` - Dependencies and scripts
-- ✅ `.env.backend` - Environment template
-- ✅ `HEROKU_DEPLOYMENT_STEPS.md` - Detailed guide
-- ✅ `HEROKU_SETUP_SCRIPT.md` - Step-by-step script
+- ✅ `.env.render` - Environment template
+- ✅ `RENDER_DEPLOYMENT_GUIDE.md` - Complete guide
+- ✅ `render-setup.sh` - Automated setup script
+- ✅ `render.yaml` - Service configuration
 - ✅ `test-backend.js` - Deployment verification
 
 ### **Next Actions:**
-1. **Create Heroku App**
-   - Go to [dashboard.heroku.com](https://dashboard.heroku.com)
-   - Click "New" → "Create new app"
-   - Name: `remotemind-backend-[yourname]`
+1. **Create Render Account**
+   - Go to [render.com](https://render.com)
+   - Sign up with GitHub (free)
+   - Authorize repository access
 
-2. **Connect Repository**
-   - Deploy tab → GitHub → Connect repository
-   - Enable automatic deploys (optional)
+2. **Create Web Service**
+   - Click "New +" → "Web Service"
+   - Connect `20jeinshp02/RmoteMind` repository
+   - Configure: Node runtime, `npm install`, `node backend-example.js`
 
 3. **Set Environment Variables**
-   - Settings → Config Vars → Add variables from `.env.backend`
-   - Start with test Stripe keys
+   - Copy from `.env.render` template
+   - Add Stripe test keys
+   - Configure custom domain
 
-4. **Deploy**
-   - Deploy tab → Manual deploy → Deploy branch
-   - Wait for build completion
-
-5. **Test Deployment**
-   - Run: `node test-backend.js https://your-app.herokuapp.com`
-   - Verify all endpoints work
+4. **Deploy & Test**
+   - Deploy automatically
+   - Run: `node test-backend.js https://your-app.onrender.com`
+   - Connect custom domain with DNS
 
 ---
 
 ## 🔧 **Environment Variables Checklist**
 
-### **Required for Heroku:**
+### **Required for Render:**
 - [ ] `NODE_ENV=production`
-- [ ] `PORT=3001`
-- [ ] `CLIENT_URL=http://localhost:3000` (update after frontend)
+- [ ] `PORT=10000` (Render default)
+- [ ] `CLIENT_URL=https://your-domain.com`
 - [ ] `STRIPE_SECRET_KEY=sk_test_...` (test key initially)
 - [ ] `STRIPE_WEBHOOK_SECRET=whsec_...` (after webhook setup)
 
