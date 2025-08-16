@@ -16,8 +16,8 @@ const backendUrl = process.argv[2];
 
 if (!backendUrl) {
   console.error('❌ Please provide your backend URL');
-  console.log('Usage: node test-backend.js <your-heroku-app-url>');
-  console.log('Example: node test-backend.js https://remotemind-backend-john.herokuapp.com');
+  console.log('Usage: node test-backend.js <your-backend-url>');
+  console.log('Example: node test-backend.js https://remotemind-backend.onrender.com');
   process.exit(1);
 }
 
@@ -32,15 +32,15 @@ console.log('\n' + '='.repeat(50));
 const tests = [
   {
     name: 'Health Check',
-    path: '/api/health',
+    path: '/health',
     method: 'GET',
     expectedStatus: 200
   },
   {
     name: 'CORS Headers',
-    path: '/api/health',
+    path: '/health',
     method: 'OPTIONS',
-    expectedStatus: 200
+    expectedStatus: 204
   },
   {
     name: 'Create Checkout Session (should fail without data)',
@@ -150,15 +150,15 @@ async function runTests() {
   } else {
     console.log('\n⚠️  Some tests failed. Check your backend deployment.');
     console.log('\n🔧 Troubleshooting:');
-    console.log('1. Check Heroku logs: heroku logs --tail');
+    console.log('1. Check Render logs in your dashboard');
     console.log('2. Verify environment variables are set');
-    console.log('3. Ensure your app is running (not sleeping)');
+    console.log('3. Ensure your app is running (check Render dashboard)');
   }
   
   console.log('\n🔗 Useful URLs:');
   console.log(`   Backend: ${baseUrl}`);
-  console.log(`   Health: ${baseUrl}/api/health`);
-  console.log(`   Heroku Dashboard: https://dashboard.heroku.com/apps`);
+  console.log(`   Health: ${baseUrl}/health`);
+  console.log(`   Render Dashboard: https://dashboard.render.com`);
   console.log(`   Stripe Dashboard: https://dashboard.stripe.com/webhooks`);
 }
 

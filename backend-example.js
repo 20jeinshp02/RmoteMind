@@ -9,13 +9,36 @@ import Stripe from 'stripe';
 import cors from 'cors';
 
 // Validate Stripe configuration
-if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('your_') || process.env.STRIPE_SECRET_KEY.includes('_here')) {
-  console.error('❌ STRIPE_SECRET_KEY not properly configured');
-  console.log('Please set your actual Stripe secret key in environment variables');
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error('❌ STRIPE_SECRET_KEY not found in environment variables');
   process.exit(1);
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Use the private key from environment
+// Warn about placeholder keys but allow in development
+if (process.env.STRIPE_SECRET_KEY.includes('placeholder') || process.env.STRIPE_SECRET_KEY.includes('your_') || process.env.STRIPE_SECRET_KEY.includes('_here')) {
+  if (process.env.NODE_ENV === 'production') {
+    console.error('❌ STRIPE_SECRET_KEY not properly configured for production');
+    console.log('Please set your actual Stripe secret key in environment variables');
+    process.exit(1);
+  } else {
+    console.warn('⚠️  Using placeholder Stripe key in development mode');
+    console.warn('   Payment functionality will not work until you set real keys');
+  }
+}
+
+// Initialize Stripe (handle placeholder keys gracefully)
+let stripe;
+try {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+} catch (error) {
+  if (process.env.NODE_ENV === 'development' && process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
+    console.warn('⚠️  Stripe initialization skipped due to placeholder key');
+    stripe = null;
+  } else {
+    console.error('❌ Failed to initialize Stripe:', error.message);
+    process.exit(1);
+  }
+}
 
 const app = express();
 app.use(cors());
@@ -48,6 +71,17 @@ app.get('/', (req, res) => {
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
     const { priceId } = req.body;
+
+    if (!priceId) {
+      return res.status(400).json({ error: 'Price ID is required' });
+    }
+
+    if (!stripe) {
+      return res.status(503).json({ 
+        error: 'Payment service unavailable', 
+        message: 'Stripe not configured properly' 
+      });
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -108,10 +142,26 @@ app.post('/webhook/stripe', express.raw({ type: 'application/json' }), (req, res
 const PORT = process.env.PORT || 3001;
 
 // Start server (for Render, Railway, etc.)
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔗 Client URL: ${process.env.CLIENT_URL || 'http://localhost:5173'}`);
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
+  });
 });
 
 // Export for compatibility
