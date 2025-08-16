@@ -1,23 +1,48 @@
 // Example backend implementation for Stripe checkout
 // This file demonstrates how to use the private key securely on the server
 
-// Load environment variables from .env.backend
-require('dotenv').config({ path: '.env.backend' });
-const express = require('express');
+// Load environment variables
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import Stripe from 'stripe';
+import cors from 'cors';
 
 // Validate Stripe configuration
 if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('your_') || process.env.STRIPE_SECRET_KEY.includes('_here')) {
-  console.error('❌ STRIPE_SECRET_KEY not properly configured in .env.backend');
-  console.log('Please set your actual Stripe secret key in .env.backend');
+  console.error('❌ STRIPE_SECRET_KEY not properly configured');
+  console.log('Please set your actual Stripe secret key in environment variables');
   process.exit(1);
 }
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use the private key from environment
-const cors = require('cors');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Use the private key from environment
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    port: process.env.PORT || 3001
+  });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'RemoteMind Backend API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      checkout: '/api/create-checkout-session',
+      webhook: '/webhook/stripe'
+    }
+  });
+});
 
 // Create checkout session endpoint
 app.post('/api/create-checkout-session', async (req, res) => {
@@ -82,15 +107,15 @@ app.post('/webhook/stripe', express.raw({ type: 'application/json' }), (req, res
 
 const PORT = process.env.PORT || 3001;
 
-// For local development
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+// Start server (for Render, Railway, etc.)
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Client URL: ${process.env.CLIENT_URL || 'http://localhost:5173'}`);
+});
 
-// Export for Vercel serverless functions
-module.exports = app;
+// Export for compatibility
+export default app;
 
 // Example .env file for backend:
 // STRIPE_SECRET_KEY=your_stripe_secret_key_here
